@@ -8,12 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var elementos = [1,2,3,4,5,6]
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -21,7 +24,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return elementos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -30,10 +33,35 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    func carregarMaisDados() {
+        let novalista = [1,2,3,4,5,6]
+        elementos.append(contentsOf: novalista)
+        tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let ultimoItem = elementos.count - 1
+        if indexPath.row == ultimoItem {
+            carregarMaisDados()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
